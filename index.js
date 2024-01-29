@@ -24,7 +24,7 @@ const s3 = new AWS.S3({
     region: AWS_REGION,
 });
   
-async function getPresignedUploadUrl(directory) {
+async function putPresignedUploadUrl(directory) {
     const key = `${directory}/${uuid.v4()}`;
     const url = await s3.getSignedUrl('putObject', {
         Bucket: AWS_S3_BUCKET,
@@ -33,12 +33,31 @@ async function getPresignedUploadUrl(directory) {
         Expires: 300,
       });
     return url;
-  }
+}
+
+async function getPresignedUploadUrl(directory, id) {
+    const key = `${directory}/${id}`;
+    const url = await s3.getSignedUrl('getObject', {
+        Bucket: AWS_S3_BUCKET,
+        Key: key,
+        Expires: 300,
+      });
+    return url;
+}
 
 app.get('/', async (req, res) => {
-    const presignedURL = await getPresignedUploadUrl('profile');
-  res.json({data: presignedURL})
-})
+    const presignedURL = await putPresignedUploadUrl('profile');
+    res.json({data: presignedURL})
+});
+
+app.get('/profile', async (req, res) => {
+    if (req.query?.id == null || req.query?.id.length === 0) {
+        throw new Error('id is required');
+    }
+
+    const presignedURL = await getPresignedUploadUrl('profile', req.query.id);
+    res.json({data: presignedURL})
+});
 
 app.listen(5555);
 console.log("http://localhost:5555");
