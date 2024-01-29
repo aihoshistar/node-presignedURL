@@ -1,6 +1,13 @@
 # node-presignedURL
 
 ```
+PUT URL 받는 방법 http://locahost:5000
+
+id 정보는 PUT URL에 잘 보시면 있어요
+GET URL 받는 방법 http://locahost:5000?profile={id}
+```
+
+```
 GET http://locahost:5000
 
 파일명은 서버에서 정함
