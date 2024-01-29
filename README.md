@@ -1,14 +1,16 @@
 # node-presignedURL
 
 ```
-PUT URL 받는 방법 http://locahost:5000
+에어드랍 포트가 5000 이라 5555 으로 해놧습니다 
+
+PUT URL 받는 방법 http://locahost:5555
 
 id 정보는 PUT URL에 잘 보시면 있어요
-GET URL 받는 방법 http://locahost:5000?profile={id}
+GET URL 받는 방법 http://locahost:5555?profile={id}
 ```
 
 ```
-GET http://locahost:5000
+GET http://locahost:5555
 
 파일명은 서버에서 정함
 ```
